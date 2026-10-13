@@ -52,6 +52,10 @@ Add verified records to `questions.js` with week, number, text, four option stri
 
 Below 760px, a persistent bottom bar provides a quiz start button on the week selection screen and Previous, Questions, and Next/Submit controls during a quiz. Questions opens a modal picker, including progress, flags, submission, and save/leave. Below 680px, labeled navigation tabs remain at the top. Touch controls have at least 44px targets; results, history, dialogs, and typography adapt to narrow screens. The dock accounts for mobile safe areas, and content has bottom clearance.
 
+## Traffic analytics
+
+Vercel Web Analytics uses the [plain HTML integration](https://vercel.com/docs/analytics/quickstart) in `index.html`: the standard `window.va` queue and a single deferred `/_vercel/insights/script.js` script. It records website visits and page views without adding a package or build step. Enable Web Analytics in the Vercel project's Analytics tab before deploying; the endpoint is already available for this project. Visit the production website after deployment, then check that tab for incoming traffic. The quiz screens share one URL, so they appear as one page in traffic reports. No quiz answers, grades, flags, or saved attempt history are passed to analytics. A blocked or unavailable analytics script does not stop the quiz from running.
+
 ## Verification
 
 Run `npm test` to execute the original regression checks and the additional-bank checks. There are no dependencies to install and no build step. To check browser persistence, serve the app locally and:
