@@ -22,6 +22,8 @@ Open `http://localhost:8000`. Serve the files over HTTP instead of opening `inde
 
 ## Content
 
+The **Original quizzes** tab retains all 120 assignment questions. The separate **Additional practice** tab contains 120 fresh questions, ten per week, based on the supplied summaries of all 27 lectures. Its answer review includes explanations and lecture references. Both banks support choosing weeks separately or together, shuffled practice, and full or missed-question retakes. They have separate saved selections and statistics; history entries identify the bank. See [additional practice coverage](docs/additional-practice.md) for the source map and editorial checks.
+
 Weeks 1–12 contain all 120 supplied questions. Original question numbers are retained. The included answer keys are for practice, not an official NPTEL grading result. Week 8 Q8 and Q9 use the exact prompts, options, and displayed accepted answers from the complete replacement screenshot. Week 5 Q6 uses the displayed accepted answer, “Before commercializing the product”, rather than the incorrectly selected “After developing a working prototype”. Week 9 Q5 likewise uses the accepted business-plan answer rather than the selected commercialization answer. Question wording, option wording, and accepted answers are retained, including original punctuation and wording such as “Ignoring customer feedback’s and focusing on company vision”. Overlapping questions appear only once.
 
 Questions 9 and 10 in Week 1, question 9 in Week 2, question 5 in Week 4, and question 3 in Week 9 accept multiple answers. Exact-set grading gives one point only for selecting all and only the accepted options. Blank answers score zero; there is no negative marking.
@@ -48,7 +50,7 @@ Below 760px, a persistent bottom bar provides a quiz start button on the week se
 
 ## Verification
 
-There is no npm build or test setup in this static deployment repository. To check browser persistence, serve the app locally and:
+Run `npm test` to execute the original regression checks and the additional-bank checks. There are no dependencies to install and no build step. To check browser persistence, serve the app locally and:
 
 1. Start a quiz, select answers, flag a question, and navigate to another question.
 2. Reload the page, choose **Resume quiz**, and confirm the question position, selected answers, and flag remain.

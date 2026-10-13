@@ -3,15 +3,19 @@ export function shuffle(list,random=Math.random){
   for(let i=a.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
   return a;
 }
-export function makeAttempt(bank,weeks,order='random',shuffleOptions=true,ids=null){
-  let selected=bank.filter(q=>weeks.includes(q.week)&&(!ids||ids.includes(q.id)));
+export function bankOf(attempt,bank=[]){
+  return attempt?.bank||attempt?.fullQuiz?.bank||bank.find(q=>q.id===attempt?.items?.[0]?.id)?.bank||'assignments';
+}
+export function makeAttempt(bank,weeks,order='random',shuffleOptions=true,ids=null,bankId=null){
+  bankId=bankId||bank[0]?.bank||'assignments';
+  let selected=bank.filter(q=>(q.bank||'assignments')===bankId&&weeks.includes(q.week)&&(!ids||ids.includes(q.id)));
   selected.sort((a,b)=>a.week-b.week||a.number-b.number);
   if(order==='random'&&selected.length>1){
     const original=selected.map(q=>q.id).join();
     selected=shuffle(selected);
     if(selected.map(q=>q.id).join()===original)selected.push(selected.shift());
   }
-  return {weeks:[...weeks],order,shuffleOptions,items:selected.map(q=>({id:q.id,optionOrder:shuffleOptions?shuffle(q.options.map((_,i)=>i)):q.options.map((_,i)=>i)})),answers:{},flagged:[],index:0,startedAt:Date.now(),submittedAt:null,reviewOnly:!!ids};
+  return {bank:bankId,weeks:[...weeks],order,shuffleOptions,items:selected.map(q=>({id:q.id,optionOrder:shuffleOptions?shuffle(q.options.map((_,i)=>i)):q.options.map((_,i)=>i)})),answers:{},flagged:[],index:0,startedAt:Date.now(),submittedAt:null,reviewOnly:!!ids};
 }
 export function isCorrect(q,answer=[]){return answer.length===q.correct.length&&q.correct.every(i=>answer.includes(i));}
 export function grade(attempt,bank){
@@ -21,16 +25,18 @@ export function grade(attempt,bank){
 }
 export function fullQuizConfig(attempt,bank){
   const original=attempt.fullQuiz||attempt;
+  const bankId=bankOf(attempt,bank);
   const weeks=[...(original.weeks||attempt.weeks)].sort((a,b)=>a-b);
-  const questionIds=original.questionIds?.length?[...original.questionIds]:bank.filter(q=>weeks.includes(q.week)).map(q=>q.id);
-  return {weeks,questionIds,order:original.order||'random',shuffleOptions:original.shuffleOptions??true};
+  const eligible=bank.filter(q=>(q.bank||'assignments')===bankId&&weeks.includes(q.week));
+  const questionIds=original.questionIds?.length?original.questionIds.filter(id=>eligible.some(q=>q.id===id)):eligible.map(q=>q.id);
+  return {bank:bankId,weeks,questionIds,order:original.order||'random',shuffleOptions:original.shuffleOptions??true};
 }
 export function makeRetake(result,bank,kind='full'){
   const full=fullQuizConfig(result,bank);
   const ids=kind==='full'?full.questionIds:kind==='focus'?result.items.map(i=>i.id):grade(result,bank).rows.filter(r=>r.status!=='correct').map(r=>r.q.id);
   const order=kind==='full'?full.order:kind==='focus'?result.order:'random';
   const shuffled=kind==='full'?full.shuffleOptions:result.shuffleOptions;
-  const next=makeAttempt(bank,full.weeks,order,shuffled,ids);
+  const next=makeAttempt(bank,full.weeks,order,shuffled,ids,full.bank);
   next.reviewOnly=kind!=='full';
   next.fullQuiz=full;
   return next;
