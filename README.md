@@ -34,6 +34,8 @@ Select available weeks individually or together. Original mode restores question
 
 ## Saved answers and attempt history
 
+The header's **Theme** selector offers **System**, **Light**, and **Dark** on every screen. System is the default and responds immediately when the device's color scheme changes. An explicit selection overrides the system setting and is saved separately under `weekwise-theme-v1`, without changing quiz progress. The preference is applied before the page styles load and synchronizes between tabs of the same site.
+
 Each answer selection or deselection is saved immediately in localStorage under `weekwise-nptel-v1`. Saved data includes the unfinished attempt's selected answers, current question, question and option order, flagged questions, full-quiz retake configuration, and home-screen selections. Reloading or reopening the same site in the same browser shows **Resume quiz**, which restores the saved attempt and its answers. Replacing or discarding an unfinished attempt requires confirmation.
 
 Submitting saves a separate completed attempt, including the answers selected for every question. **Attempt history → Review** restores those selections alongside the answer key and score, even after a reload. A retake starts with blank answers and keeps the earlier completed attempt in history. Elapsed time includes time away from the page. There is no time limit.

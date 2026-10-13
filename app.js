@@ -54,6 +54,7 @@ function openQuestions(){
 }
 function shell(content){
   const shownBank=screen==='quiz'?bankOf(attempt,questions):screen==='result'?bankOf(result,questions):activeBank;
+  const theme=window.weekwiseTheme?.preference||'system';
   $('#app').innerHTML=`<div class="layout"><aside class="sidebar">
     <a class="brand" href="#" data-action="home" aria-label="Weekwise home"><span class="logo">w</span>weekwise<span style="color:#83a367">.</span></a>
     <div class="side-label">Your study space</div>
@@ -63,7 +64,7 @@ function shell(content){
       <button data-action="history" class="${screen==='history'?'active':''}" aria-label="Attempt history">${icon('clock')}<span>History</span></button>
     </nav>
     <div class="side-bottom"><div class="side-note"><strong>A little practice, every week.</strong>Build confidence one question at a time. Your next attempt is a fresh start.</div><div class="profile"><span class="avatar">S</span><div>Your study space<small>Progress saved on this browser</small></div></div></div>
-    </aside><main class="main"><header class="topbar"><span>NPTEL <span style="margin:0 8px;color:#b2bbb0">/</span> <strong>${banks[shownBank].label}</strong></span><span class="badge"><i class="dot"></i> ${availableWeeks.length} of 12 weeks ready</span></header>${content}
+    </aside><main class="main"><header class="topbar"><span>NPTEL <span class="breadcrumb-divider">/</span> <strong>${banks[shownBank].label}</strong></span><div class="topbar-actions"><label class="theme-control" for="theme-select"><span>Theme</span><select id="theme-select" aria-label="Color theme">${[['system','System'],['light','Light'],['dark','Dark']].map(([value,label])=>`<option value="${value}" ${theme===value?'selected':''}>${label}</option>`).join('')}</select></label><span class="badge"><i class="dot"></i> ${availableWeeks.length} of 12 weeks ready</span></div></header>${content}
     <footer class="footer"><span>weekwise · Learn through practice</span><span>${shownBank==='additional'?'Practice questions from your lecture summaries':'Question text from your screenshots'}</span></footer></main></div>${mobileDock()}`;
 }
 function render(){if(screen==='quiz')renderQuiz();else if(screen==='result')renderResult();else if(screen==='history')renderHistory();else renderHome();}
@@ -74,7 +75,7 @@ function renderHome(){
   const resume=attempt&&!attempt.submittedAt?`<div class="resume-banner"><div><strong>Your quiz is waiting for you.</strong><p>${bankLabel(attempt)} · ${weekLabel(attempt.weeks)} · ${answered(attempt)} of ${attempt.items.length} answered</p></div><div class="resume-actions"><button class="btn" data-action="discard">Discard</button><button class="btn primary" data-action="resume">Resume quiz ${icon('arrow')}</button></div></div>`:'';
   const cards=availableWeeks.map(w=>{
     const isSelected=selectedWeeks.has(w),n=bank.filter(q=>q.week===w).length;
-    return `<button class="week-card ${isSelected?'selected':''}" data-action="week" data-week="${w}" aria-pressed="${isSelected}"><div class="week-top"><span class="week-num">WEEK ${String(w).padStart(2,'0')}</span><span class="select-dot">${isSelected?'✓':''}</span></div><h3>${escape(weekNames[w])}</h3><div class="week-foot"><span>${n} questions · ${n} points</span><span style="color:#5c7e49">Ready to practice ↗</span></div></button>`;
+    return `<button class="week-card ${isSelected?'selected':''}" data-action="week" data-week="${w}" aria-pressed="${isSelected}"><div class="week-top"><span class="week-num">WEEK ${String(w).padStart(2,'0')}</span><span class="select-dot">${isSelected?'✓':''}</span></div><h3>${escape(weekNames[w])}</h3><div class="week-foot"><span>${n} questions · ${n} points</span><span class="week-ready">Ready to practice ↗</span></div></button>`;
   }).join('');
   shell(`<section class="hero"><div><div class="eyebrow">${additional?'Go beyond the assignments':'Practice makes progress'}</div><h1>${additional?'A little deeper.<br>A lot more practice.':'Your next great attempt<br>starts here.'}</h1><p>${additional?banks.additional.note:'Pick a week. Mix it up. Find out what you know.'}</p>${additional?'<p class="practice-note">New exercises at the assignment level. Answers, explanations, and lecture references appear after submission.</p>':''}</div><div class="hero-art" aria-hidden="true"><div class="art-page"></div><div class="art-page front"><span style="font-size:17px;color:#739251">✓</span><div class="art-line"></div><div class="art-line" style="width:75%"></div><div class="art-line"></div></div><div class="art-check">✓</div></div></section>
     <div class="stats"><div class="stat"><div><div class="stat-label">Questions available</div><div class="stat-value">${bank.length} <small>across ${availableWeeks.length} weeks</small></div></div><span class="stat-icon">${icon('book')}</span></div><div class="stat"><div><div class="stat-label">Completed attempts</div><div class="stat-value">${completed.length} <small>in this question bank</small></div></div><span class="stat-icon">${icon('check')}</span></div><div class="stat"><div><div class="stat-label">Your best score</div><div class="stat-value">${best===null?'—':best+'%'} <small>${best===null?'make your first attempt':'personal best'}</small></div></div><span class="stat-icon">${icon('chart')}</span></div></div>${resume}
@@ -188,6 +189,7 @@ document.addEventListener('click',event=>{
   else if(action==='view-history'){result=history.find(h=>String(h.submittedAt)===button.dataset.id);selectBank(bankOf(result,questions));filter='all';changeScreen('result');}
 });
 document.addEventListener('change',event=>{
+  if(event.target.id==='theme-select'){window.weekwiseTheme?.setPreference(event.target.value);return;}
   if(event.target.id==='shuffle-options'){shuffleOptions=event.target.checked;persist();return;}
   if(event.target.name==='answer'&&screen==='quiz'){
     const q=questions.find(q=>q.id===attempt.items[attempt.index].id),value=Number(event.target.value),old=attempt.answers[q.id]||[];
