@@ -15,7 +15,7 @@ export function makeAttempt(bank,weeks,order='random',shuffleOptions=true,ids=nu
     selected=shuffle(selected);
     if(selected.map(q=>q.id).join()===original)selected.push(selected.shift());
   }
-  return {bank:bankId,weeks:[...weeks],order,shuffleOptions,items:selected.map(q=>({id:q.id,optionOrder:shuffleOptions?shuffle(q.options.map((_,i)=>i)):q.options.map((_,i)=>i)})),answers:{},flagged:[],index:0,startedAt:Date.now(),submittedAt:null,reviewOnly:!!ids};
+  return {bank:bankId,weeks:[...weeks],order,shuffleOptions,items:selected.map(q=>({id:q.id,optionOrder:shuffleOptions?shuffle(q.options.map((_,i)=>i)):q.options.map((_,i)=>i)})),answers:{},flagged:[],index:0,startedAt:Date.now(),elapsedMs:0,submittedAt:null,reviewOnly:!!ids};
 }
 export function isCorrect(q,answer=[]){return answer.length===q.correct.length&&q.correct.every(i=>answer.includes(i));}
 export function grade(attempt,bank){

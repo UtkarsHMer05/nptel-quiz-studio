@@ -49,8 +49,8 @@ test('app flow: combine weeks, original order, answer, submit, review, retake, s
   click('filter',{filter:'missed'});assert.match(html(),/What makes an idea valuable/);assert.doesNotMatch(html(),/What are some common mistakes startups make/);
   click('retake-missed');assert.equal(state().attempt.items.length,2);assert.deepEqual(state().attempt.answers,{});
   change(1);click('home');assert.match(html(),/Your quiz is waiting for you/);click('resume');assert.match(html(),/Focus retake/);
-  const pending=JSON.stringify(state().attempt);
-  click('history');click('view-history',{id:String(state().history[0].submittedAt)});assert.match(html(),/90% score/);
+  click('history');const pending=JSON.stringify(state().attempt);
+  click('view-history',{id:String(state().history[0].submittedAt)});assert.match(html(),/90% score/);
   click('retake');assert.equal(JSON.stringify(state().attempt),pending);assert.match(elements.get('#dialog-content').innerHTML,/unfinished attempt/);
   elements.get('#dialog-confirm').onclick();assert.equal(state().attempt.items.length,20);assert.deepEqual(state().attempt.answers,{});assert.equal(state().history.length,1);
   click('home');click('discard');elements.get('#dialog-confirm').onclick();
