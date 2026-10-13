@@ -22,7 +22,7 @@ Open `http://localhost:8000`. Serve the files over HTTP instead of opening `inde
 
 ## Content
 
-The **Original quizzes** tab retains all 120 assignment questions. The separate **Additional practice** tab contains 120 fresh questions, ten per week, based on the supplied summaries of all 27 lectures. Its answer review includes explanations and lecture references. Both banks support choosing weeks separately or together, shuffled practice, and full or missed-question retakes. They have separate saved selections and statistics; history entries identify the bank. See [additional practice coverage](docs/additional-practice.md) for the source map and editorial checks.
+The **Original quizzes** tab includes Week 0 before Weeks 1–12 and retains all 120 original questions from Weeks 1–12. Week 0 currently contains the six supplied questions (Q1–6), with independently researched answer keys, explanations, and authoritative source links after submission. Its remaining screenshot was unavailable, so no missing questions were invented. The original bank currently contains 126 questions across 13 weeks. The separate **Additional practice** tab contains 120 fresh questions, ten per week, based on the supplied summaries of all 27 lectures. Its answer review includes explanations and lecture references. Both banks support choosing weeks separately or together, shuffled practice, and full or missed-question retakes. They have separate saved selections and statistics; history entries identify the bank. See [additional practice coverage](docs/additional-practice.md) for the source map and editorial checks.
 
 Weeks 1–12 contain all 120 supplied questions. Original question numbers are retained. The included answer keys are for practice, not an official NPTEL grading result. Week 8 Q8 and Q9 use the exact prompts, options, and displayed accepted answers from the complete replacement screenshot. Week 5 Q6 uses the displayed accepted answer, “Before commercializing the product”, rather than the incorrectly selected “After developing a working prototype”. Week 9 Q5 likewise uses the accepted business-plan answer rather than the selected commercialization answer. Question wording, option wording, and accepted answers are retained, including original punctuation and wording such as “Ignoring customer feedback’s and focusing on company vision”. Overlapping questions appear only once.
 
@@ -46,7 +46,7 @@ Older unfinished attempts have no record of active time. Their timer starts at 0
 
 ## Future weeks
 
-Add verified records to `questions.js` with week, number, text, four option strings, and accepted original-option indices. Available weeks and question counts are derived from the question bank. Add a descriptive label to `weekNames` in `app.js` when another week is supplied. All 12 weeks currently contain 10 questions each. No questions are invented.
+Add verified records to `questions.js` with week, number, text, four option strings, and accepted original-option indices. Available weeks and question counts are derived from the question bank. Add a descriptive label to `weekNames` in `app.js` when another week is supplied. Weeks 1–12 contain 10 questions each; Week 0 currently contains the six supplied questions. No questions are invented.
 
 ## Mobile layout
 
