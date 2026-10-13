@@ -1,4 +1,4 @@
-// Supplied Week 0 screenshot: questions 1–6. Preserve its wording and option order.
+// Supplied Week 0 screenshots: questions 1–10. Preserve their wording and option order.
 export const weekZeroQuestions = [
   {
     week:0, number:1,
@@ -47,5 +47,40 @@ export const weekZeroQuestions = [
     correct:[1],
     explanation:'KPI means Key Performance Indicator. It is a measurable value used to assess progress toward a business objective.',
     source:{title:'Microsoft Learn — Using key performance indicators (KPIs) to meet your business goals',url:'https://learn.microsoft.com/en-gb/dynamics365/business-central/analytics-about-kpis'}
+  },
+  {
+    week:0, number:7,
+    text:'Which of the following is essential for starting a successful business?',
+    options:['Identifying a target market','Developing a business plan','Securing funding','All of the above'],
+    correct:[3],
+    explanation:'Understanding the target market, planning the business, and arranging the funds needed to start it are all relevant steps. Funding can include the founder’s own money; it does not have to come from outside investors. All of the above is the best option.',
+    source:{title:'U.S. Small Business Administration — Plan your business',url:'https://www.sba.gov/counseling/plan-your-business/'}
+  },
+  {
+    week:0, number:8,
+    text:'What is a key benefit of using social media for business marketing?',
+    options:['Reducing product quality','Directly engaging with customers and building brand loyalty','Eliminating the need for a website','Limiting customer feedback to specific groups'],
+    correct:[1],
+    explanation:'Social media enables direct conversations with customers and helps businesses build trust, relationships, and brand awareness. It complements other marketing channels rather than eliminating the need for a website.',
+    source:{title:'Business Queensland — Social media for business',url:'https://www.business.qld.gov.au/running-business/marketing-sales/marketing/websites-social-media/social-media'}
+  },
+  {
+    week:0, number:9,
+    text:'What do OYO Rooms and Swiggy have in common?',
+    options:['Same business model','Both are tech startups','Both are valued at over $1 billion (Unicorns)','Both business models are free from financial risks'],
+    correct:[2], keyStatus:'inferred',
+    explanation:'The probable intended course answer is the unicorn option: both companies achieved startup valuations above $1 billion. This question is ambiguous because both also have technology-led startup origins. Swiggy became publicly listed in 2024, so “Unicorns” describes its historical private-company status. The official assignment answer key has not been provided; this practice key is inferred, not confirmed.',
+    source:{title:'Reuters — Swiggy’s $10.7 billion pre-IPO valuation',url:'https://www.reuters.com/world/india/swiggy-targets-15-bln-valuation-india-ipo-sources-say-2024-08-23/',additional:[
+      {title:'Business Standard / Reuters — OYO’s 2018 funding and valuation',url:'https://www.business-standard.com/amp/article/reuters/indian-hotel-chain-oyo-to-raise-1-billion-from-softbank-others-118092500637_1.html'},
+      {title:'Swiggy — Company history and 2024 public listing',url:'https://www.swiggy.com/corporate/'}
+    ]}
+  },
+  {
+    week:0, number:10,
+    text:'Choose the most appropriate definition of entrepreneurship:',
+    options:['Copying business ideas from other companies','Starting a business','Developing ideas and research papers','Earning profits'],
+    correct:[1],
+    explanation:'Among these options, starting a business best captures entrepreneurship: acting on an opportunity to create a venture. Generating ideas and earning profits can be part of the process, but neither alone defines entrepreneurship.',
+    source:{title:'Cambridge Dictionary — Entrepreneurship',url:'https://dictionary.cambridge.org/dictionary/english/entrepreneurship'}
   }
 ].map(q=>({...q,bank:'assignments',id:`w0q${q.number}`,type:q.correct.length>1?'multiple':'single'}));

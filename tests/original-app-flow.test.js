@@ -15,7 +15,7 @@ test('app flow: combine weeks, original order, answer, submit, review, retake, s
   const state=()=>JSON.parse(storage.get('weekwise-nptel-v1'));
   const click=(action,extra={})=>handlers.click({target:{closest(){return {dataset:{action,...extra},disabled:false};}},preventDefault(){}});
   const change=(value,checked=true)=>handlers.change({target:{name:'answer',value:String(value),checked}});
-  assert.match(html(),/126 <small>across 13 weeks/);
+  assert.match(html(),/130 <small>across 13 weeks/);
   assert.match(html(),/Choose your weeks/);assert.match(html(),/Product strategy &amp; market focus|Product strategy & market focus/);
   click('week',{week:'2'});assert.match(html(),/Weeks 1 \+ 2/);
   click('order',{order:'original'});click('start');
@@ -117,7 +117,7 @@ test('app flow: combine weeks, original order, answer, submit, review, retake, s
   change(1);click('submit');elements.get('#dialog-confirm').onclick();assert.match(html(),/100% score/);assert.match(html(),/Retake full quiz · 10 questions/);
   click('retake-full');assert.equal(state().attempt.items.length,10);assert.deepEqual(state().attempt.weeks,[12]);
   click('home');click('discard');elements.get('#dialog-confirm').onclick();click('all-weeks');
-  assert.match(html(),/126 questions · 126 possible points/);click('order',{order:'random'});click('start');
-  assert.equal(state().attempt.items.length,126);assert.equal(new Set(state().attempt.items.map(i=>i.id)).size,126);
+  assert.match(html(),/130 questions · 130 possible points/);click('order',{order:'random'});click('start');
+  assert.equal(state().attempt.items.length,130);assert.equal(new Set(state().attempt.items.map(i=>i.id)).size,130);
   assert.deepEqual(state().attempt.weeks,[0,1,2,3,4,5,6,7,8,9,10,11,12]);
 });
