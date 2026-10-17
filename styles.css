@@ -31,6 +31,7 @@ svg{width:18px;height:18px;flex-shrink:0}.select-dot svg{width:12px;height:12px}
 .review-top{flex-wrap:wrap}.review-badges{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.review-card.review-flagged{border-left:3px solid #b7872d}.badge.review-flag{background:#fff5da;border-color:#e4cc96;color:#765314}.review-flag svg{width:13px;height:13px}
 :root[data-theme="dark"] .review-card.review-flagged{border-left-color:#e2bf70}
 :root[data-theme="dark"] .badge.review-flag{background:#3b3426;border-color:#74613b;color:#f0d491}
+.review-toolbar{flex-wrap:wrap}.review-toolbar .filters{max-width:100%}.multiple-study{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:20px}.multiple-study p{font-size:12px;line-height:1.8;color:var(--muted);margin:10px 0 15px}.study-week{margin:24px 0 12px}.status-not-in-quiz{background:var(--soft);color:var(--muted)}
 
 .selected-summary .bank-label{display:block;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#52733e;margin-bottom:9px}
 .hero .practice-note{font-size:12px;max-width:540px;margin-top:8px}
